@@ -1,0 +1,30 @@
+﻿<ContentDialog
+    x:Class="Stand.UWP.Views.Login.RegisterDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stand.UWP.Views.Login"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Registar Funcionário"
+    PrimaryButtonText="Registar Novo Funcionário"
+    SecondaryButtonText="Cancelar"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <StackPanel>
+        <TextBox x:Name="email" Header="E-mail" Text="{x:Bind FuncionarioViewModel.Funcionario.Email, Mode=TwoWay}" />
+        <TextBox x:Name="username" Header="Username" Text="{x:Bind FuncionarioViewModel.Funcionario.Nome, Mode=TwoWay}" />
+        <PasswordBox x:Name="password" Header="Password" Password="{x:Bind FuncionarioViewModel.Funcionario.Password, Mode=TwoWay}" />
+
+        <Border Background="Red" BorderBrush="Black" BorderThickness="2" Margin="0,10" Padding="5" 
+                Visibility="{x:Bind FuncionarioViewModel.ShowError, Mode=OneWay}">
+
+            <StackPanel Orientation="Horizontal">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1E0;" Margin="10, 0" Foreground="White" />
+                <TextBlock Text="Login Failed" Foreground="White" />
+            </StackPanel>
+        </Border>
+
+    </StackPanel>
+</ContentDialog>

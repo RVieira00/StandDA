@@ -1,0 +1,91 @@
+﻿<Page
+    x:Class="Stand.UWP.Views.Cliente.ClienteFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stand.UWP.Views.Cliente"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Adicionar/Editar Cliente" 
+                        Style="{StaticResource HeaderTextBlockStyle}" />
+            <CommandBar x:Name="CbMain"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+                <AppBarButton x:Name="BtnSave"
+                              Icon="Save"
+                              Label="Guardar"
+                              IsEnabled="{x:Bind ClienteViewModel.Valid, Mode=OneWay}"  
+                              ToolTipService.ToolTip="Guardar Cliente"
+                              Click="BtnSave_Click" >
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <StackPanel>
+                                <Border Background="Red" Padding="10">
+                                    <TextBlock Text="Não foi possível guardar, o cliente já existe. " 
+                                               Foreground="White" />
+                                </Border>
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </AppBarButton>
+                <AppBarButton x:Name="BtnCancel"
+                              Label="Cancelar"
+                              Icon="Cancel"
+                              ToolTipService.ToolTip="Cancelar"
+                              Click="BtnCancel_Click" />
+            </CommandBar>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="10,61,-10,-61">
+            
+            <TextBox x:Name="Nome" Header="Nome"
+                     Text="{x:Bind  ClienteViewModel.Cliente.Nome, 
+                            Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged}" Width="1454" />
+            <Border Background="Red" BorderBrush="Black"
+                    BorderThickness="2" Margin="5"
+                    Visibility="{x:Bind ClienteViewModel.Invalid, Mode=OneWay}" Width="1456">
+                <TextBlock Text="Nome de cliente inválido" Foreground="White" Width="1090" />
+            </Border>
+            
+            <TextBox x:Name="Endereco" Header="Endereco"
+                Text="{x:Bind Mode=TwoWay, Path=ClienteViewModel.Cliente.Endereco, UpdateSourceTrigger=PropertyChanged}" Width="1454" />
+            <Border Background="Red" BorderBrush="Black"
+                BorderThickness="2"
+                Visibility="{x:Bind Mode=OneWay, Path=ClienteViewModel.Invalid}" Width="1456">
+                <TextBlock Text="Endereco inválido" Foreground="White" Width="1090" />
+            </Border>
+            
+            <TextBox x:Name="CartaConducao" Header="Nº carta condução"
+                Text="{x:Bind Mode=TwoWay, Path=ClienteViewModel.Cliente.CartaConducao, UpdateSourceTrigger=PropertyChanged}" Width="1454" />
+            <Border Background="Red" BorderBrush="Black"
+                BorderThickness="2"
+                Visibility="{x:Bind Mode=OneWay, Path=ClienteViewModel.Invalid}" Width="1456">
+                <TextBlock Text="Numero inválido" Foreground="White" Width="1090" />
+            </Border>
+            
+            <TextBox x:Name="Telemovel" Header="Telemovel"
+                Text="{x:Bind Mode=TwoWay, Path=ClienteViewModel.Cliente.Telemovel, UpdateSourceTrigger=PropertyChanged}" Width="1454" />
+            <Border Background="Red" BorderBrush="Black"
+                BorderThickness="2"
+                Visibility="{x:Bind Mode=OneWay, Path=ClienteViewModel.Invalid}" Width="1456">
+                <TextBlock Text="Numero inválido" Foreground="White" Width="1090" />
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</Page>

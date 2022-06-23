@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="Stand.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stand.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded" >
+
+    <Grid>
+    
+        <!--NavigationView-->
+        <NavigationView x:Name="NvMain"
+                        IsSettingsVisible="False"
+                        ItemInvoked="NvMain_ItemInvoked"
+                        OpenPaneLength="200" 
+                        PaneTitle="{x:Bind FuncionarioViewModel.LoggedFuncionario.Nome, Mode=OneWay}" >
+
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="NviMarca" Icon="ViewAll" Content="Marcas" Tag="marcas" 
+                                    Visibility="{x:Bind FuncionarioViewModel.IsAdmin, Mode=OneWay}" />
+                <NavigationViewItem x:Name="NviExtra" Icon="Add" Content="Extras" Tag="extras"
+                                    Visibility="{x:Bind FuncionarioViewModel.IsAdmin, Mode=OneWay}"/>
+                <NavigationViewItem x:Name="NviTipo" Icon="ShowBcc"  Content="Tipos" Tag="tipos"
+                                    Visibility="{x:Bind FuncionarioViewModel.IsAdmin, Mode=OneWay}"/>
+                <NavigationViewItem x:Name="NviViatura" Icon="Shop" Content="Viaturas" Tag="viaturas"
+                                    Visibility="{x:Bind FuncionarioViewModel.IsLogged, Mode=OneWay}"/>
+                <NavigationViewItem x:Name="NviCliente" Icon="Contact" Content="Clientes" Tag="clientes"
+                                    Visibility="{x:Bind FuncionarioViewModel.IsLogged, Mode=OneWay}"/>
+                <NavigationViewItem x:Name="NviFuncionario" Icon="Contact2"  Content="Funcionarios" Tag="funcionarios"
+                                    Visibility="{x:Bind FuncionarioViewModel.IsAdmin, Mode=OneWay}"/>
+                <NavigationViewItem x:Name="NviFatura" Icon="TwoPage" Content="Faturas" Tag="faturas"
+                                    Visibility="{x:Bind FuncionarioViewModel.IsLogged, Mode=OneWay}"/>
+            </NavigationView.MenuItems>
+
+
+           
+
+            <!--Frame-->
+            <Frame x:Name="frame" Padding="20, 50" Navigated="frame_Navigated"/>
+
+        </NavigationView>
+
+        <!-- COMMANDAR BAR -->
+        <CommandBar x:Name="cmd_bar"
+                    OverflowButtonVisibility="Collapsed" >
+
+            <AppBarElementContainer Margin="5">
+                <AutoSuggestBox x:Name="search_box"
+                                PlaceholderText="Search" 
+                                QueryIcon="Find"
+                                Width="300px" 
+                                Background="Gray"
+                                BorderThickness="0"
+                                HorizontalAlignment="Stretch" />
+            </AppBarElementContainer>
+            <AppBarSeparator/>
+            <AppBarButton x:Name="AbbLogin" Icon="Contact" 
+                          Click="AbbLogin_Click" 
+                          Visibility="{x:Bind FuncionarioViewModel.IsNotLogged, Mode=OneWay}" />
+
+            <AppBarButton x:Name="AbbLogout" Icon="Redo" 
+                          Click="AbbLogout_Click"
+                          Visibility="{x:Bind FuncionarioViewModel.IsLogged, Mode=OneWay}" />
+
+        </CommandBar>
+        
+    </Grid>
+</Page>

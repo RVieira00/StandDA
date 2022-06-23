@@ -1,0 +1,86 @@
+﻿<Page
+    x:Class="Stand.UWP.Views.ViaturaExtra.ViaturaExtraFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stand.UWP.Views.ViaturaExtra"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Stand.Domain.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+          
+            <!--Header-->
+
+
+            <TextBlock  Text="Adicionar/Editar Extras na Viatura" 
+                        Style="{StaticResource HeaderTextBlockStyle}" />
+
+            <CommandBar x:Name="CbMain"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+                <AppBarButton x:Name="BtnSave"
+                              Icon="Save"
+                              Label="Guardar"
+                              ToolTipService.ToolTip="Guardar Marca"
+                              Click="BtnSave_Click" >
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <StackPanel>
+                                <Border Background="Red" Padding="10">
+                                    <TextBlock Text="Não foi possível guardar, a marca já existe. " 
+                                               Foreground="White" />
+                                </Border>
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </AppBarButton>
+                <AppBarButton x:Name="BtnCancel"
+                              Label="Cancelar"
+                              Icon="Cancel"
+                              ToolTipService.ToolTip="Cancelar"
+                              Click="BtnCancel_Click" />
+            </CommandBar>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="10,61,-10,-61">
+
+            
+
+            <!--Detalhes da viatura-->
+            <Image  x:Name="thumb" Margin="0, 10" MaxHeight="400"
+                       Source="{x:Bind ViaturaExtraViewModel.ViaturaViewModel.Viatura.Thumb, 
+                                    Mode=OneWay, 
+                                    Converter={StaticResource bytesToImageConverter}}" />
+            <TextBlock   Text="{x:Bind ViaturaExtraViewModel.ViaturaViewModel.Viatura.Marca}"/>
+            <TextBlock  Text="{x:Bind ViaturaExtraViewModel.ViaturaViewModel.Viatura.Modelo}"/>
+            <TextBlock Text="{x:Bind ViaturaExtraViewModel.ViaturaViewModel.Viatura.Matricula}"/>
+
+            <AutoSuggestBox 
+                                    x:Name="AsbExtra"
+                                    Header="Extra"
+                                    QueryIcon="Find"
+                                    DisplayMemberPath="Name"
+                                    Text="{x:Bind ViaturaExtraViewModel.ExtraNome, 
+                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    TextChanged="AsbExtra_TextChanged"
+                                    QuerySubmitted="AsbExtra_QuerySubmitted"
+                                    SuggestionChosen="AsbExtra_SuggestionChosen" />
+
+           
+
+        </StackPanel>
+    </Grid>
+</Page>

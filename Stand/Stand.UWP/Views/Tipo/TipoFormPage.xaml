@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="Stand.UWP.Views.Tipo.TipoFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stand.UWP.Views.Tipo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Adicionar/Editar Tipo de Viatura" 
+                        Style="{StaticResource HeaderTextBlockStyle}" />
+            
+            <CommandBar x:Name="CbMain"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+                <AppBarButton x:Name="BtnSave"
+                              Icon="Save"
+                              Label="Save"
+                              IsEnabled="{x:Bind TipoViewModel.Valid, Mode=OneWay}" 
+                              ToolTipService.ToolTip="Guardar"
+                              Click="BtnSave_Click" >
+
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <StackPanel>
+                                <Border Background="Red" Padding="10">
+                                    <TextBlock Text="Tipo já existe. Não é possível guardar" 
+                                               Foreground="White" />
+                                </Border>
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+
+                </AppBarButton>
+                <AppBarButton x:Name="BtnCancel"
+                              Label="Cancel"
+                              Icon="Cancel"
+                              ToolTipService.ToolTip="Cancelar"
+                              Click="BtnCancel_Click" />
+            </CommandBar>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Margin="10,61,-10,-61" >
+            <TextBox x:Name="name" 
+                     Header="Nome"
+                     Text="{x:Bind TipoViewModel.TipoNome, 
+                            Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged}" />
+            <Border Background="Red" 
+                    BorderBrush="Black"
+                    BorderThickness="2" 
+                    Margin="5"
+                    Visibility="{x:Bind TipoViewModel.Invalid, Mode=OneWay}">
+                <TextBlock Text="Nome inválido" Foreground="White" />
+            </Border>
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="Stand.UWP.Views.Funcionario.FuncionarioFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stand.UWP.Views.Funcionario"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Adicionar/Editar Funcionario" 
+                        Style="{StaticResource HeaderTextBlockStyle}" />
+            <CommandBar x:Name="CbMain"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+                <AppBarButton x:Name="BtnSave"
+                              Icon="Save"
+                              Label="Guardar"
+                              ToolTipService.ToolTip="Guardar Cliente"
+                              Click="BtnSave_Click" >
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <StackPanel>
+                                <Border Background="Red" Padding="10">
+                                    <TextBlock Text="Não foi possível guardar, o funcionario já existe. " 
+                                               Foreground="White" />
+                                </Border>
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </AppBarButton>
+                <AppBarButton x:Name="BtnCancel"
+                              Label="Cancelar"
+                              Icon="Cancel"
+                              ToolTipService.ToolTip="Cancelar"
+                              Click="BtnCancel_Click" />
+            </CommandBar>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="10,61,-10,-61">
+
+            <TextBox x:Name="Nome" Header="Nome"
+                     Text="{x:Bind Mode=TwoWay, Path=FuncionarioViewModel.Funcionario.Nome, UpdateSourceTrigger=PropertyChanged}" Width="603" />
+
+            <TextBox x:Name="Email" Header="Email"
+                Text="{x:Bind Mode=TwoWay, Path=FuncionarioViewModel.Funcionario.Email, UpdateSourceTrigger=PropertyChanged}" Width="603" />
+            <PasswordBox x:Name="Password"
+                        Header="Nova Password"
+                        PlaceholderText="Insira a nova password"
+                        Width="601"
+                        MaxLength="20"
+                        PasswordRevealMode="Peek"
+                        Password="{x:Bind Mode=TwoWay, Path=FuncionarioViewModel.Funcionario.Password}"/>
+
+        </StackPanel>
+
+    </Grid>
+
+
+</Page>
